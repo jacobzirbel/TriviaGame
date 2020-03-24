@@ -14,6 +14,7 @@ let startButton = document.getElementById("start-button"),
 let data = {
   questions: allQuestions,
   currentQuestion: 0,
+  currentAnswers: [],
   timerInterval: "",
   correct: 0,
   wrong: 0,
@@ -23,14 +24,14 @@ let data = {
 const dataProxy = new Proxy(data, {
   set: (target, property, value) => {
     target[property] = value;
-    (() => {
-      if (property === "timeRemaining") {
+    if (property === "timeRemaining") {
+      (() => {
         if (value < 0) {
           checkAnswer("Out of Time!");
         }
         timeRemainingText.textContent = "Time Remaining: " + data.timeRemaining;
-      }
-    })();
+      })();
+    }
   }
 });
 reset();
