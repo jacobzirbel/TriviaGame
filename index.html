@@ -8,29 +8,32 @@
     <title>Trivia</title>
 </head>
 
-<body>
+<body hidden="true">
     <div class="container">
         <div class="header">
             <h1>Trivia Trivia Trivia</h1>
         </div>
-        <div class="timeRemaining">
-            <p>Time Remaining Goes Here</p>
+        <div id="start-button"><button onclick="start()">start</button></div>
+        <div id="time-remaining-container">
+            <p id="time-remaining">Time Remaining: 30</p>
         </div>
         <div id="question-container">
 
-            <div class="question">
+            <div id="question">
                 <p>Where does the question go?</p>
             </div>
-            <div class="answers">
-                <p>answer</p>
-                <p>answer</p>
-                <p>answer</p>
-                <p>answer</p>
+            <div id="answers">
             </div>
         </div>
         <div id="answered-container">
             <p> correct or wrong</p>
             <img style="height:200px;width:200px; background: blue;text-align: center;"> </img>
+        </div>
+        <div id="end-screen">
+            <p id="correct">Correct Answers: </p>
+            <p id="incorrect">Incorrect Answers: </p>
+            <p id="Unanswered">Unanswered: </p>
+            <button onclick="start()"> Start Over? </button>
         </div>
 
 
@@ -48,6 +51,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+    <script src="assets/javascript/questions.js"></script>
     <script src="assets/javascript/app.js"></script>
 </body>
 
