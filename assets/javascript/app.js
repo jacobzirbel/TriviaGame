@@ -88,9 +88,9 @@ function checkAnswer(answer) {
     dataProxy.wrong++;
   }
   correctOrWrong.innerHTML +=
-    "</br>" + dataProxy.questions[currentQuestion].correctAnswer;
-  currentQuestion++;
-  if (currentQuestion === questions.length) {
+    "</br>" + dataProxy.questions[dataProxy.currentQuestion].correctAnswer;
+  dataProxy.currentQuestion++;
+  if (dataProxy.currentQuestion === dataProxy.questions.length) {
     clearTimeout(questionTimer);
     finishGame();
   }
@@ -101,17 +101,13 @@ function startTimer() {
   dataProxy.timeRemaining = 5;
   dataProxy.timerInterval = setInterval(() => {
     dataProxy.timeRemaining--;
-    if (timeRemaining < 1) {
-      clearInterval(timerInterval);
-      checkAnswer("Out of Time!");
-    }
   }, 1000);
 }
 
 function finishGame() {
   answeredContainer.hidden = true;
   endScreen.hidden = false;
-  correctPoints.textContent += correct;
-  incorrectPoints.textContent += wrong;
-  unansweredPoints.textContent += unanswered;
+  correctPoints.textContent += dataProxy.correct;
+  incorrectPoints.textContent += dataProxy.wrong;
+  unansweredPoints.textContent += dataProxy.unanswered;
 }
