@@ -1,3 +1,6 @@
+window.onload = () => {
+	reset();
+};
 let startButton = document.getElementById("start-button"),
 	timeRemainingContainer = document.getElementById("time-remaining-container"),
 	questionContainer = document.getElementById("question-container"),
@@ -7,9 +10,15 @@ let startButton = document.getElementById("start-button"),
 	answersText = document.getElementById("answers"),
 	endScreen = document.getElementById("end-screen"),
 	correctOrWrong = document.getElementById("correct-or-wrong"),
+	correctPoints = document.getElementById("correct"),
+	incorrectPoints = document.getElementById("incorrect"),
+	unansweredPoints = document.getElementById("unanswered"),
 	questions = allQuestions,
 	currentQuestion = 0,
-	timerInterval;
+	timerInterval,
+	correct = 0,
+	wrong = 0,
+	unanswered = 0;
 
 function reset() {
 	document.body.hidden = false;
@@ -21,16 +30,19 @@ function reset() {
 	currentQuestion = 0;
 }
 function start() {
+	reset();
 	startButton.hidden = true;
 	showQuestion();
 }
 function showQuestion() {
+	answeredContainer.hidden = true;
 	questionContainer.hidden = false;
 	timeRemainingContainer.hidden = false;
 	let question = questions[currentQuestion];
 	let answers = [...question.answers, question.correctAnswer].sort(() => {
 		return Math.random() - 0.5;
 	});
+	answersText.innerHTML = "";
 	for (let a of answers) {
 		let option = document.createElement("p");
 		option.textContent = a;
@@ -43,20 +55,28 @@ function showQuestion() {
 }
 function checkAnswer(answer) {
 	clearInterval(timerInterval);
+	let questionTimer = setTimeout(() => {
+		showQuestion();
+	}, 100);
 	questionContainer.hidden = true;
 	answeredContainer.hidden = false;
 	if (answer === questions[currentQuestion].correctAnswer) {
-		correctOrWrong.textContent = "correct!";
+		correctOrWrong.textContent = "Correct!";
+		correct++;
+	} else if (answer === "Out of Time!") {
+		correctOrWrong.textContent = answer;
+		unanswered++;
 	} else {
-		correctOrWrong.textContent = "wrong!";
+		correctOrWrong.textContent = "Wrong!";
+		wrong++;
 	}
+	correctOrWrong.innerHTML +=
+		"</br>" + questions[currentQuestion].correctAnswer;
 	currentQuestion++;
 	if (currentQuestion === questions.length) {
+		clearTimeout(questionTimer);
 		finishGame();
 	}
-	setTimeout(() => {
-		showQuestion();
-	}, 3000);
 }
 
 function startTimer() {
@@ -71,5 +91,11 @@ function startTimer() {
 		}
 	}, 1000);
 }
-reset();
-start();
+
+function finishGame() {
+	answeredContainer.hidden = true;
+	endScreen.hidden = false;
+	correctPoints.textContent += correct;
+	incorrectPoints.textContent += wrong;
+	unansweredPoints.textContent += unanswered;
+}
