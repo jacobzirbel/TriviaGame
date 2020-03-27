@@ -42,6 +42,7 @@ function showQuestion() {
 	let answers = [...question.answers, question.correctAnswer].sort(() => {
 		return Math.random() - 0.5;
 	});
+	questionText.innerHTML = `<p>${question.question}</p>`;
 	answersText.innerHTML = "";
 	for (let a of answers) {
 		let option = document.createElement("p");
@@ -57,7 +58,7 @@ function checkAnswer(answer) {
 	clearInterval(timerInterval);
 	let questionTimer = setTimeout(() => {
 		showQuestion();
-	}, 100);
+	}, 1000);
 	questionContainer.hidden = true;
 	answeredContainer.hidden = false;
 	if (answer === questions[currentQuestion].correctAnswer) {
@@ -81,11 +82,11 @@ function checkAnswer(answer) {
 
 function startTimer() {
 	clearInterval(timerInterval);
-	let timeRemaining = 5;
+	let timeRemaining = 10;
 	timerInterval = setInterval(() => {
-		timeRemaining--;
 		timeRemainingText.textContent = "Time Remaining: " + timeRemaining;
-		if (timeRemaining < 1) {
+		timeRemaining--;
+		if (timeRemaining < 0) {
 			clearInterval(timerInterval);
 			checkAnswer("Out of Time!");
 		}
