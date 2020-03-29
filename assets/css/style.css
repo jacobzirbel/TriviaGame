@@ -15,8 +15,20 @@ p {
 	display: flex;
 	align-items: center;
 }
-.answers {
+#answers {
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
+	width: 175px;
+	margin: 0 auto;
+}
+#answers p {
+	padding: 0 10px;
+}
+#answers p:hover {
+	background-color: grey;
+}
+#question p {
+	font-size: 30px;
+	margin: 20px 0;
 }
