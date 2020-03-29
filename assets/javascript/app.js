@@ -1,6 +1,3 @@
-window.onload = () => {
-	reset();
-};
 let startButton = document.getElementById("start-button"),
 	timeRemainingContainer = document.getElementById("time-remaining-container"),
 	questionContainer = document.getElementById("question-container"),
@@ -19,6 +16,9 @@ let startButton = document.getElementById("start-button"),
 	correct = 0,
 	wrong = 0,
 	unanswered = 0;
+window.onload = () => {
+	reset();
+};
 
 function reset() {
 	document.body.hidden = false;
@@ -58,9 +58,12 @@ function checkAnswer(answer) {
 	clearInterval(timerInterval);
 	let questionTimer = setTimeout(() => {
 		showQuestion();
-	}, 1000);
+	}, 3000);
 	questionContainer.hidden = true;
 	answeredContainer.hidden = false;
+	let image = document.getElementsByTagName("img")[0];
+	console.log(image);
+	image.setAttribute("src", questions[currentQuestion].imgURL);
 	if (answer === questions[currentQuestion].correctAnswer) {
 		correctOrWrong.textContent = "Correct!";
 		correct++;
