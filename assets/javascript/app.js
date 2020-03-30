@@ -35,6 +35,7 @@ function start() {
 	showQuestion();
 }
 function showQuestion() {
+	startTimer();
 	answeredContainer.hidden = true;
 	questionContainer.hidden = false;
 	timeRemainingContainer.hidden = false;
@@ -52,7 +53,6 @@ function showQuestion() {
 		};
 		answersText.appendChild(option);
 	}
-	startTimer();
 }
 function checkAnswer(answer) {
 	clearInterval(timerInterval);
@@ -62,20 +62,25 @@ function checkAnswer(answer) {
 	questionContainer.hidden = true;
 	answeredContainer.hidden = false;
 	let image = document.getElementsByTagName("img")[0];
-	console.log(image);
 	image.setAttribute("src", questions[currentQuestion].imgURL);
 	if (answer === questions[currentQuestion].correctAnswer) {
 		correctOrWrong.textContent = "Correct!";
+		correctOrWrong.innerHTML +=
+			"</br>" + questions[currentQuestion].correctAnswer;
 		correct++;
 	} else if (answer === "Out of Time!") {
 		correctOrWrong.textContent = answer;
+		correctOrWrong.innerHTML +=
+			"</br> Correct Answer: " + questions[currentQuestion].correctAnswer;
 		unanswered++;
 	} else {
 		correctOrWrong.textContent = "Wrong!";
+		correctOrWrong.innerHTML +=
+			"</br> Correct Answer: " + questions[currentQuestion].correctAnswer;
 		wrong++;
 	}
-	correctOrWrong.innerHTML +=
-		"</br>" + questions[currentQuestion].correctAnswer;
+	correctOrWrong.style.fontSize = "22px";
+	"</br> Correct Answer: " + questions[currentQuestion].correctAnswer;
 	currentQuestion++;
 	if (currentQuestion === questions.length) {
 		clearTimeout(questionTimer);
@@ -86,10 +91,11 @@ function checkAnswer(answer) {
 function startTimer() {
 	clearInterval(timerInterval);
 	let timeRemaining = 10;
+	timeRemainingText.textContent = "Time Remaining: " + timeRemaining;
 	timerInterval = setInterval(() => {
-		timeRemainingText.textContent = "Time Remaining: " + timeRemaining;
 		timeRemaining--;
-		if (timeRemaining < 0) {
+		timeRemainingText.textContent = "Time Remaining: " + timeRemaining;
+		if (timeRemaining < 1) {
 			clearInterval(timerInterval);
 			checkAnswer("Out of Time!");
 		}
@@ -99,6 +105,7 @@ function startTimer() {
 function finishGame() {
 	answeredContainer.hidden = true;
 	endScreen.hidden = false;
+	timeRemainingContainer.hidden = true;
 	correctPoints.textContent += correct;
 	incorrectPoints.textContent += wrong;
 	unansweredPoints.textContent += unanswered;
