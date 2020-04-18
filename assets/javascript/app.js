@@ -21,6 +21,14 @@ window.onload = () => {
 };
 
 function reset() {
+	clearInterval(timerInterval);
+	currentQuestion = 0;
+	correct = 0;
+	wrong = 0;
+	unanswered = 0;
+	correctPoints.textContent = "Correct Answers: ";
+	incorrectPoints.textContent = "Correct Answers: ";
+	unansweredPoints.textContent = "";
 	document.body.hidden = false;
 	questionContainer.hidden = true;
 	timeRemainingContainer.hidden = true;
