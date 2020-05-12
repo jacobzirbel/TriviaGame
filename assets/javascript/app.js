@@ -27,8 +27,8 @@ function reset() {
 	wrong = 0;
 	unanswered = 0;
 	correctPoints.textContent = "Correct Answers: ";
-	incorrectPoints.textContent = "Correct Answers: ";
-	unansweredPoints.textContent = "";
+	incorrectPoints.textContent = "Incorrect Answers: ";
+	unansweredPoints.textContent = "Unanswered Questions: ";
 	document.body.hidden = false;
 	questionContainer.hidden = true;
 	timeRemainingContainer.hidden = true;
@@ -66,7 +66,7 @@ function checkAnswer(answer) {
 	clearInterval(timerInterval);
 	let questionTimer = setTimeout(() => {
 		showQuestion();
-	}, 3000);
+	}, 2000);
 	questionContainer.hidden = true;
 	answeredContainer.hidden = false;
 	let image = document.getElementsByTagName("img")[0];
